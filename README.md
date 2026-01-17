@@ -31,16 +31,27 @@ git config --global user.email "saurabhrai.aiml.tech@gmail.com"
 '''
 ### Git CLI Command 
 git add --- to add 1 file to github account 
+
 git add .  --- to add all file to github account 
+
 git status --- to see file adition status 
+
 git commit --- to commit all done in github account
+
 git commit -m "Updated Files" -- to commit all done in github account with message
+
 git push origin main -- Pushed all data to github server 
 
 For Large file to upload in github
+
 git init --- initialize git 
+
 git remote add origin https://github.com/raisaurab44/California_House_Priceing_End_To_End_Projrct.git --- Initializing repo
+
 git lfs install ---- Install LFS ( Large file system ) for file >100mb 
+
 git lfs track "*.zip"  # replace *.zip with your large file types
+
 git add .gitattributes ----afdding this for large file 
+
 git push origin main --force ----for force upload
