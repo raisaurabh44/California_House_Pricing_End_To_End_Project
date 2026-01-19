@@ -105,4 +105,4 @@ envVars
 → Secrets (API keys) set in Render UI
 
 ### OutPUT LINK
-[text](https://california-house-pricing-end-to-end-5kwp.onrender.com/predict)
+https://california-house-pricing-end-to-end-5kwp.onrender.com/
