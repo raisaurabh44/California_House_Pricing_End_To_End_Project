@@ -2,6 +2,10 @@ import pickle
 from flask import Flask, request, jsonify, app, url_for, render_template
 import numpy as np
 import pandas as pd
+import os
+
+#API_KEY = os.getenv("rnd_yHA552oot8BoKkfOo7TgSQSPCQVF")
+API_KEY = os.getenv("API_KEY")
 
 app=Flask(__name__)
 #Load the model
@@ -20,6 +24,11 @@ def home():
 @app.route('/predict_api', methods=['POST'])
 def predict_api():
     
+    # Check API key from headers
+    client_key = request.headers.get("x-api-key")
+    if not client_key or client_key != API_KEY:
+        return jsonify({"error": "Unauthorized"}), 401
+
     # ---- Validate request ----
     if not request.is_json or "data" not in request.json:
         return jsonify({"error": "Invalid request. JSON with 'data' required."}), 400

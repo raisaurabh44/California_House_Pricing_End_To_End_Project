@@ -1,6 +1,17 @@
+# services:
+#   - type: web
+#     name: California_house-price-predictor
+#     env: python
+#     buildCommand: pip install -r requirements.txt
+#     startCommand: gunicorn app:app
+
 services:
   - type: web
-    name: California_house-price-predictor
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    name: flask-ml-app
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: API_KEY
+        sync: false
