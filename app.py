@@ -16,8 +16,6 @@ FEATURE_NAMES=scaler.feature_names_in_
 @app.route('/')
 def home():
     return render_template("home.html", best_model=None, predictions_table=[])
-    #return render_template('home.html')
-
 
 @app.route('/predict_api', methods=['POST'])
 def predict_api():
@@ -66,10 +64,10 @@ def predict_api():
         "best_model": best_model
     })
 
-@app.route('/predict', methods=['POST'])
+@app.route("/predict", methods=['POST'])
 def predict():
      # Read form input
-    data_dict = {name: float(val) for name, val in zip(FEATURE_NAMES, request.form.values())}
+    data_dict = {name: float(request.form[name]) for name in FEATURE_NAMES}
     input_array = pd.DataFrame([data_dict], columns=FEATURE_NAMES)
 
     # # Read form input
@@ -113,29 +111,3 @@ def predict():
 
 if __name__ == "__main__":
     app.run(debug=True)     
-    
-# @app.route('/predict_api', methods=['POST'])
-# def predict_api():
-#     ## Getting Data from request Postman API call
-#     data = request.json['data']
-#     ## Printing row data
-#     print(data)
-#     ## Converting data into numpy array in the shape of 2D array required by sklearn models 
-#     print(np.array(list(data.values())).reshape(1, -1))
-#     ## Appliying scaling during model training
-#     new_data = scaler.transform(np.array(list(data.values())).reshape(1, -1))   
-#     model_type = request.json.get('model_type', 'LinearRegression')
-#     data_array = np.array(list(data.values())).reshape(1, -1)
-    
-#     if model_type == 'LinearRegression':
-#         prediction = pickle_model1.predict(new_data)
-#     elif model_type == 'RidgeCV':
-#         prediction = pickle_model2.predict(new_data)            
-#     elif model_type == 'RandomForestRegressor':
-#         prediction = pickle_model3.predict(new_data)
-#     elif model_type == 'GradientBoostingRegressor':
-#         prediction = pickle_model4.predict(new_data)
-#     else:
-#         return jsonify({'error': 'Invalid model type specified.'}), 400
-    
-#     return jsonify({'prediction': prediction[0]})

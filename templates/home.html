@@ -2,91 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>California House Price Prediction ML Model</title>
+    <title>California House Price Prediction</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #f7f7f7;
+            font-family: Arial;
+            background: #f4f4f4;
         }
-
         .container {
-            width: 400px;
-            margin: 50px auto;
+            width: 420px;
+            margin: 40px auto;
             padding: 20px;
-            background: #fff;
+            background: white;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            box-shadow: 0 0 10px rgba(0,0,0,.2);
         }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
         label {
-            display: block;
-            margin-top: 10px;
             font-weight: bold;
+            margin-top: 10px;
+            display: block;
         }
-
         input {
             width: 100%;
-            padding: 8px;
+            padding: 7px;
             margin-top: 4px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
         }
-
         button {
             width: 100%;
-            margin-top: 15px;
             padding: 10px;
+            margin-top: 15px;
             background: #007bff;
             color: white;
             border: none;
-            border-radius: 5px;
             font-size: 16px;
-            cursor: pointer;
         }
-
-        button:hover {
-            background: #0056b3;
-        }
-
-        .result {
-            margin-top: 15px;
-            padding: 12px;
-            background: #e2e3e5;
-            border-radius: 6px;
-            text-align: center;
-            font-weight: bold;
-        }
-
         table {
             width: 100%;
-            margin-top: 12px;
+            margin-top: 15px;
             border-collapse: collapse;
         }
-
         th, td {
             border: 1px solid #ccc;
             padding: 6px;
             text-align: center;
         }
-
         th {
             background: #007bff;
             color: white;
         }
+        .result {
+            background: #e2e3e5;
+            padding: 10px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
 <div class="container">
     <h2>California House Price Prediction</h2>
 
     <form action="/predict" method="post">
+
         <label>Median Income</label>
         <input type="number" step="any" name="MedInc" required>
 
@@ -115,23 +93,23 @@
     </form>
 
     {% if best_model %}
-    <div class="result">
-        Best Model: {{ best_model.model }}<br>
-        Predicted Price: ${{ best_model.prediction | round(2) }}
-    </div>
+        <div class="result">
+            Best Model: {{ best_model.model }} <br>
+            Predicted Price: ${{ best_model.prediction | round(2) }}
+        </div>
 
-    <table>
-        <tr>
-            <th>Model</th>
-            <th>Prediction</th>
-        </tr>
-        {% for row in predictions_table %}
-        <tr>
-            <td>{{ row.model }}</td>
-            <td>${{ row.prediction | round(2) }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+        <table>
+            <tr>
+                <th>Model</th>
+                <th>Prediction</th>
+            </tr>
+            {% for row in predictions_table %}
+            <tr>
+                <td>{{ row.model }}</td>
+                <td>${{ row.prediction | round(2) }}</td>
+            </tr>
+            {% endfor %}
+        </table>
     {% endif %}
 </div>
 </body>
