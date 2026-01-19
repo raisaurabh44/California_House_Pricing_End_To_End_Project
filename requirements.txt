@@ -6,3 +6,4 @@ sklearn
 seaborn
 requests
 scikit-learn
+gunicorn

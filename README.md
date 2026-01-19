@@ -55,3 +55,9 @@ git lfs track "*.zip"  # replace *.zip with your large file types
 git add .gitattributes ----afdding this for large file 
 
 git push origin main --force ----for force upload
+
+### Now Next Step is Deployment in Heroku Cloud 
+
+We are using Procfile its giving command to Heroku Srver - Related To Gunicorm 
+
+We use Gunicorn as it pure Python HTTP server for WSGI application as it allows to run application concurrently 
