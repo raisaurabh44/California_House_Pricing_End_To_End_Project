@@ -61,3 +61,45 @@ git push origin main --force ----for force upload
 We are using Procfile its giving command to Render Server - Related To Gunicorm 
 
 We use Gunicorn as it pure Python HTTP server for WSGI application as it allows to run application concurrently 
+
+FROM python:3.10-slim
+Uses a lightweight Python 3.10 base image, which is stable and compatible with scikit-learn models.
+
+WORKDIR /app
+Sets /app as the working directory inside the container.
+
+COPY requirements.txt .
+Copies dependency list into the container.
+
+RUN pip install --no-cache-dir -r requirements.txt
+Installs Python dependencies without keeping cache, reducing image size and memory usage.
+
+COPY . .
+Copies the entire application code, models, and templates into the container.
+
+EXPOSE 10000
+Documents that the app listens on port 10000 (Render’s default internal port).
+
+CMD ["gunicorn", "app:app", "--workers=1", "--threads=1", "--bind=0.0.0.0:10000"]
+Starts the Flask app using Gunicorn with a single worker and thread to prevent memory issues on Render’s free tier.
+
+### Now Next We are Docarizing the app To create Dockerfile image 
+Explanation (Brief but Important)
+
+type: web
+→ This is a web service
+
+env: docker
+→ Tells Render to use your Dockerfile
+
+plan: free
+→ Uses free tier (512 MB RAM)
+
+dockerfilePath: ./Dockerfile
+→ Uses Dockerfile from root
+
+autoDeploy: true
+→ Auto redeploy on every Git push
+
+envVars
+→ Secrets (API keys) set in Render UI
