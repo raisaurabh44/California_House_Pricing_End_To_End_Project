@@ -56,8 +56,8 @@ git add .gitattributes ----afdding this for large file
 
 git push origin main --force ----for force upload
 
-### Now Next Step is Deployment in Heroku Cloud 
+### Now Next Step is Deployment in Render Cloud 
 
-We are using Procfile its giving command to Heroku Srver - Related To Gunicorm 
+We are using Procfile its giving command to Render Server - Related To Gunicorm 
 
 We use Gunicorn as it pure Python HTTP server for WSGI application as it allows to run application concurrently 

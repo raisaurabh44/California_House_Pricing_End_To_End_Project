@@ -7,9 +7,9 @@ app=Flask(__name__)
 #Load the model
 scaler = pickle.load(open("scaling.pkl", "rb"))
 pickle_model1 = pickle.load(open("models/LinearRegression.pkl", "rb"))
-pickle_model2 = pickle.load(open("models/RidgeCV.pkl", "rb"))
-pickle_model3 = pickle.load(open("models/RandomForestRegressor.pkl", "rb"))
-pickle_model4 = pickle.load(open("models/GradientBoostingRegressor.pkl", "rb"))
+#pickle_model2 = pickle.load(open("models/RidgeCV.pkl", "rb"))
+#pickle_model3 = pickle.load(open("models/RandomForestRegressor.pkl", "rb"))
+#pickle_model4 = pickle.load(open("models/GradientBoostingRegressor.pkl", "rb"))
 
 FEATURE_NAMES=scaler.feature_names_in_
 
@@ -38,21 +38,22 @@ def predict_api():
 
     # Predictions from all 4 models
     pred_linear = float(pickle_model1.predict(new_data)[0])
-    pred_ridge = float(pickle_model2.predict(new_data)[0])
-    pred_rf = float(pickle_model3.predict(new_data)[0])
-    pred_gb = float(pickle_model4.predict(new_data)[0])
+    # pred_ridge = float(pickle_model2.predict(new_data)[0])
+    # pred_rf = float(pickle_model3.predict(new_data)[0])
+    # pred_gb = float(pickle_model4.predict(new_data)[0])
 
     # Store predictions in a table-like structure
     predictions_table = [
         {"model": "LinearRegression", "prediction": float(pred_linear)},
-        {"model": "RidgeCV", "prediction": float(pred_ridge)},
-        {"model": "RandomForestRegressor", "prediction": float(pred_rf)},
-        {"model": "GradientBoostingRegressor", "prediction": float(pred_gb)}
+    #     {"model": "RidgeCV", "prediction": float(pred_ridge)},
+    #     {"model": "RandomForestRegressor", "prediction": float(pred_rf)},
+    #     {"model": "GradientBoostingRegressor", "prediction": float(pred_gb)}
     ]
 
     # Ensemble (average) prediction
     ensemble_prediction = float(
-        (pred_linear + pred_ridge + pred_rf + pred_gb) / 4
+        (pred_linear) / 1
+        #(pred_linear + pred_ridge + pred_rf + pred_gb) / 4
     )
 
     # Best model selection (highest prediction)
@@ -79,16 +80,16 @@ def predict():
 
     # Predict using all 4 models
     pred_linear = float(pickle_model1.predict(final_input)[0])
-    pred_ridge  = float(pickle_model2.predict(final_input)[0])
-    pred_rf     = float(pickle_model3.predict(final_input)[0])
-    pred_gb     = float(pickle_model4.predict(final_input)[0])
+    # pred_ridge  = float(pickle_model2.predict(final_input)[0])
+    # pred_rf     = float(pickle_model3.predict(final_input)[0])
+    # pred_gb     = float(pickle_model4.predict(final_input)[0])
 
     # Store predictions
     predictions_table = [
         {"model": "LinearRegression", "prediction": float(pred_linear)},
-        {"model": "RidgeCV", "prediction": float(pred_ridge)},
-        {"model": "RandomForestRegressor", "prediction": float(pred_rf)},
-        {"model": "GradientBoostingRegressor", "prediction": float(pred_gb)}    
+    #     {"model": "RidgeCV", "prediction": float(pred_ridge)},
+    #     {"model": "RandomForestRegressor", "prediction": float(pred_rf)},
+    #     {"model": "GradientBoostingRegressor", "prediction": float(pred_gb)}    
     ]
 
     # Select best model (highest prediction)
